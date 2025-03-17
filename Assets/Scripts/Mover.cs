@@ -1,10 +1,17 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Mover : MonoBehaviour
 {
     [SerializeField] private float _speedX;
     [SerializeField] private float _jumpForce;
-    [SerializeField] private Rigidbody2D _rigidbody;
+
+    private Rigidbody2D _rigidbody;
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
 
     public void Jump()
     {

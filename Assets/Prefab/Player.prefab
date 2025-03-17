@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4817973867879027566}
   - component: {fileID: 7740180158011102168}
   - component: {fileID: 735149784808912094}
-  - component: {fileID: 3048742221412274663}
   - component: {fileID: 3139833283357374356}
+  - component: {fileID: 3048742221412274663}
   - component: {fileID: 332883300663268932}
   - component: {fileID: 2013777551416880830}
   - component: {fileID: -854640578659430986}
@@ -119,6 +119,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcfa7085b538bde47ac293d3e7208978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3139833283357374356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919789388933540858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75db49c92b2f5764abfa9d3f12f1d112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3048742221412274663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,19 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speedX: 500
   _jumpForce: 850
-  _rigidbody: {fileID: 332883300663268932}
---- !u!114 &3139833283357374356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919789388933540858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75db49c92b2f5764abfa9d3f12f1d112, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &332883300663268932
 Rigidbody2D:
   serializedVersion: 4

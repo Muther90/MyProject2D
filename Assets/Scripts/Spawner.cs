@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Spawner : MonoBehaviour
+public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable
 {
     [SerializeField] private float _cooldown = 2f;
-    [SerializeField] private Coin _coin;
+    [SerializeField] private T _prefab;
     [SerializeField] private PointManager _pointManager;
 
-    private ObjectPool<Coin> _coins;
-    private WaitForSeconds _waitForSeconds;
+    private ObjectPool<T> _pool; 
     private Vector2[] _spawnPoints;
-    private Queue<Vector2> queueToSpawn = new Queue<Vector2>();
-    private Coroutine _countdownCoroutine;
+    private Queue<Vector2> _queueToSpawn = new Queue<Vector2>();
+    private WaitForSeconds _waitForSeconds;
+    private Coroutine _countdownRoutine;
 
     private void Awake()
     {
@@ -23,11 +23,12 @@ public class Spawner : MonoBehaviour
         }
 
         _spawnPoints = _pointManager.Get();
+        _waitForSeconds = new WaitForSeconds(_cooldown);
 
-        _coins = new ObjectPool<Coin>(
-            createFunc: () => Instantiate(_coin, Vector2.zero, Quaternion.identity),
-            actionOnGet: (obj) => OnGetCoin(obj),
-            actionOnRelease: (obj) => OnReleaseCoin(obj),
+        _pool = new ObjectPool<T>(
+            createFunc: () => Instantiate(_prefab, Vector2.zero, Quaternion.identity),
+            actionOnGet: (obj) => OnGetObject(obj),
+            actionOnRelease: (obj) => OnReleaseObject(obj),
             actionOnDestroy: (obj) => Destroy(obj.gameObject),
             collectionCheck: true,
             defaultCapacity: _spawnPoints.Length,
@@ -41,55 +42,54 @@ public class Spawner : MonoBehaviour
 
     private void FirstSpawn()
     {
-        foreach (var point in _spawnPoints)
+        foreach (Vector2 point in _spawnPoints)
         {
-            queueToSpawn.Enqueue(point);
+            _queueToSpawn.Enqueue(point);
         }
 
         for (int i = 0; i < _spawnPoints.Length; i++)
         {
-            _coins.Get();
+            _pool.Get();
         }
     }
 
-    private IEnumerator Countdown()
+    private IEnumerator CountdownRoutine()
     {
-        _waitForSeconds = new WaitForSeconds(_cooldown);
-
-        while (queueToSpawn.Count > 0)
+        while (_queueToSpawn.Count > 0)
         {
             yield return _waitForSeconds;
 
-            _coins.Get();
+            _pool.Get();
         }
 
-        _countdownCoroutine = null;
+        _countdownRoutine = null;
     }
 
-    private void OnGetCoin(Coin coin)
+    private void OnGetObject(T obj)
     {
-        if (queueToSpawn.Count > 0)
+        if (_queueToSpawn.Count > 0)
         {
-            coin.transform.position = queueToSpawn.Dequeue();
-            coin.Taken += ReleaseCoin;
-            coin.gameObject.SetActive(true);
+            obj.transform.position = _queueToSpawn.Dequeue();
+            obj.Taken += ReleaseObject; 
+            obj.gameObject.SetActive(true);
         }
     }
 
-    private void ReleaseCoin(Coin coin)
+    private void ReleaseObject(ISpawnable obj)
     {
-        _coins.Release(coin);
+        T typedObj = (T)obj;
+        _pool.Release(typedObj);
 
-        if (_countdownCoroutine == null && queueToSpawn.Count > 0)
+        if (_countdownRoutine == null && _queueToSpawn.Count > 0)
         {
-            _countdownCoroutine = StartCoroutine(Countdown());
+            _countdownRoutine = StartCoroutine(CountdownRoutine());
         }
     }
 
-    private void OnReleaseCoin(Coin coin)
+    private void OnReleaseObject(T obj)
     {
-        queueToSpawn.Enqueue((Vector2)coin.transform.position);
-        coin.gameObject.SetActive(false);
-        coin.Taken -= ReleaseCoin;
+        _queueToSpawn.Enqueue((Vector2)obj.transform.position);
+        obj.gameObject.SetActive(false);
+        obj.Taken -= ReleaseObject;
     }
 }

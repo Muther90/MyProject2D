@@ -8,6 +8,7 @@ public class Point : MonoBehaviour
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/Circle");
     }
 
     void Start()
