@@ -1,16 +1,22 @@
 using UnityEngine;
 
-public class Viewer : MonoBehaviour
+public class Vision : MonoBehaviour
 {
     [SerializeField] private float _radius;
     [SerializeField] private float _angle;
 
     private float _angleToTarget;
+    private float _halfAngle;
 
     public bool IsPlayerDetected { get; private set; }
     public Vector2 PlayerPosition { get; private set; }
 
-    public void View(Vector2 direction)
+    private void Awake()
+    {
+        _halfAngle = _angle / 2;
+    }
+
+    public void LookAt(Vector2 direction)
     {
         IsPlayerDetected = false; 
 
@@ -25,7 +31,7 @@ public class Viewer : MonoBehaviour
                 PlayerPosition = (player.transform.position - transform.position).normalized;
                 _angleToTarget = Vector2.Angle(direction, PlayerPosition);
 
-                if (_angleToTarget < _angle / 2)
+                if (_angleToTarget < _halfAngle)
                 {
                     RaycastHit2D hit = Physics2D.Linecast(transform.position, player.transform.position);
 

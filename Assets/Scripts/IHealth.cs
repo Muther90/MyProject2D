@@ -1,4 +1,4 @@
-public interface IDamagable
+public interface IHealth
 {
     void TakeDamage(int amount);
     void TakeHeal(int amount);

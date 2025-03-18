@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Pickup : MonoBehaviour, ISpawnable
+public class Item : MonoBehaviour, ISpawnable
 {
     public event Action<ISpawnable> Taken;
 

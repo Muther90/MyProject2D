@@ -24,14 +24,21 @@ public class InputReader : MonoBehaviour
         }
     }
 
-    public bool GetIsJump() => GetBoolAsTrigger(ref _isJump);
-    public bool GetIsHit() => GetBoolAsTrigger(ref _isHit);
-
-    private bool GetBoolAsTrigger(ref bool value)
+    public bool GetIsJump()
     {
-        bool localValue = value;
-        value = false;
+        return GetBoolAsTrigger(ref _isJump);
+    }
 
-        return localValue;
+    public bool GetIsHit()
+    {
+        return GetBoolAsTrigger(ref _isHit);
+    }
+
+    private bool GetBoolAsTrigger(ref bool flag)
+    {
+        bool value = flag;
+        flag = false;
+
+        return value;
     }
 }

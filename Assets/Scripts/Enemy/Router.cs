@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Router : MonoBehaviour
 {
-    [SerializeField] private PointManager _pointManager;
+    [SerializeField] private WaypointProvider _pointManager;
     [SerializeField] private float _distanceToTarget;
     [SerializeField] private float _sensitivity = 0.2f;
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AidKit : Pickup
+public class AidKit : Item
 {
     [SerializeField] private int _healAmount = 10;
 

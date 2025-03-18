@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour , IDamagable
+public class Enemy : MonoBehaviour , IHealth
 {
     [SerializeField] private int _hitPoint = 20;
     [SerializeField] private int _damage = 20;
     [SerializeField] private float _damageCooldown = 1.0f;
     [SerializeField] private Mover _mover;
     [SerializeField] private Router _router;
-    [SerializeField] private Viewer _viewer;
+    [SerializeField] private Vision _viewer;
 
     private float _damageTimer = 0f;
     private Vector2 _directionToTarget;
@@ -16,15 +16,11 @@ public class Enemy : MonoBehaviour , IDamagable
     {
         if (_viewer.IsPlayerDetected)
         {
-            _directionToTarget = (_viewer.PlayerPosition - (Vector2)transform.position).normalized;
-            _viewer.View(_directionToTarget);
-            _mover.Move(Mathf.Sign(_viewer.PlayerPosition.x - transform.position.x));
+            MoveTo(_viewer.PlayerPosition);
         }
         else
         {
-            _directionToTarget = (_router.CurrentTarget - (Vector2)transform.position).normalized;
-            _viewer.View(_directionToTarget);
-            _mover.Move(Mathf.Sign(_router.CurrentTarget.x - transform.position.x));
+            MoveTo(_router.CurrentTarget);
         }
     }
 
@@ -61,12 +57,14 @@ public class Enemy : MonoBehaviour , IDamagable
 
         if (_hitPoint <= 0)
         {
-            Die();
+            Destroy(gameObject);
         }
     }
 
-    private void Die()
+    private void MoveTo(Vector2 position)
     {
-        Destroy(gameObject); 
+        _directionToTarget = (position - (Vector2)transform.position).normalized;
+        _viewer.LookAt(_directionToTarget);
+        _mover.Move(Mathf.Sign(position.x - transform.position.x));
     }
 }

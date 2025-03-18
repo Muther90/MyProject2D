@@ -7,7 +7,7 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable
 {
     [SerializeField] private float _cooldown = 2f;
     [SerializeField] private T _prefab;
-    [SerializeField] private PointManager _pointManager;
+    [SerializeField] private WaypointProvider _pointManager;
 
     private ObjectPool<T> _pool; 
     private Vector2[] _spawnPoints;

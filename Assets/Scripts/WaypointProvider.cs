@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PointManager : MonoBehaviour
+public class WaypointProvider : MonoBehaviour
 {
     [SerializeField] private Transform[] _targetPoints;
 
