@@ -5,16 +5,13 @@ public class Item : MonoBehaviour, ISpawnable
 {
     public event Action<ISpawnable> Taken;
 
-    protected virtual void OnTriggerEnter2D(Collider2D collider)
+    public void Collect(Collector collector)
     {
-        if (collider.TryGetComponent<Player>(out Player player))
-        {
-            ApplyEffect(player); 
-            Taken?.Invoke(this); 
-        }
+        ApplyEffect(collector);
+        Taken?.Invoke(this);
     }
 
-    protected virtual void ApplyEffect(Player player)
+    protected virtual void ApplyEffect(Collector collector)
     {
 
     }

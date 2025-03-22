@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour , IHealth
+public class Enemy : MonoBehaviour
 {
-    [SerializeField] private int _hitPoint = 20;
     [SerializeField] private int _damage = 20;
     [SerializeField] private float _damageCooldown = 1.0f;
     [SerializeField] private Mover _mover;
@@ -26,13 +25,13 @@ public class Enemy : MonoBehaviour , IHealth
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (_viewer.IsPlayerDetected && collision.gameObject.TryGetComponent<Player>(out Player player))
+        if (_viewer.IsPlayerDetected && collision.gameObject.TryGetComponent<Health>(out Health health))
         {
             _damageTimer += Time.deltaTime;
 
             if (_damageTimer >= _damageCooldown)
             {
-                player.TakeDamage(_damage);
+                health.TakeDamage(_damage);
                 _damageTimer = 0f;
             }
         }
@@ -43,21 +42,6 @@ public class Enemy : MonoBehaviour , IHealth
         if (collision.gameObject.TryGetComponent<Player>(out Player _))
         {
             _damageTimer = 0f;
-        }
-    }
-
-    public void TakeHeal(int amount)
-    {
-        _hitPoint += amount;
-    }
-
-    public void TakeDamage(int amount)
-    {
-        _hitPoint -= amount;
-
-        if (_hitPoint <= 0)
-        {
-            Destroy(gameObject);
         }
     }
 

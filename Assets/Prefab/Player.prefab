@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 735149784808912094}
   - component: {fileID: 3139833283357374356}
   - component: {fileID: 3048742221412274663}
+  - component: {fileID: -8251073395861089218}
   - component: {fileID: 332883300663268932}
   - component: {fileID: 2013777551416880830}
   - component: {fileID: -854640578659430986}
@@ -103,9 +104,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58afea72408b1584f8f8cd55c2c7d12c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damage: 30
   _inputReader: {fileID: 735149784808912094}
   _mover: {fileID: 3048742221412274663}
   _groundDetector: {fileID: 3139833283357374356}
+  _jumper: {fileID: 0}
   _animator: {fileID: 0}
 --- !u!114 &735149784808912094
 MonoBehaviour:
@@ -144,7 +147,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedX: 500
-  _jumpForce: 850
+--- !u!114 &-8251073395861089218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919789388933540858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176ed09000ec9c340b6796cbbc44e12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &332883300663268932
 Rigidbody2D:
   serializedVersion: 4

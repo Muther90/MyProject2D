@@ -4,8 +4,11 @@ public class AidKit : Item
 {
     [SerializeField] private int _healAmount = 10;
 
-    protected override void ApplyEffect(Player player)
+    protected override void ApplyEffect(Collector collector)
     {
-        player.TakeHeal(_healAmount);
+        if (collector.TryGetComponent<Health>(out Health health))
+        {
+            health.TakeHeal(_healAmount);
+        }
     }
 }
