@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Item : MonoBehaviour, ISpawnable
+public abstract class Item : MonoBehaviour, ISpawnable
 {
     public event Action<ISpawnable> Taken;
 
@@ -11,8 +11,5 @@ public class Item : MonoBehaviour, ISpawnable
         Taken?.Invoke(this);
     }
 
-    protected virtual void ApplyEffect(Collector collector)
-    {
-
-    }
+    protected abstract void ApplyEffect(Collector collector);
 }
