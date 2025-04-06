@@ -1,4 +1,4 @@
-public static class MusicData
+public static class AudioData
 {
     public static class Params
     {
