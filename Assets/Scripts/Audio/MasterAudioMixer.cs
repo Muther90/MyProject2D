@@ -4,28 +4,32 @@ using UnityEngine.Audio;
 public class MasterAudioMixer : MonoBehaviour
 {
     [SerializeField] private AudioMixerGroup _audioMixerGroup;
-
-    private bool _isAudioEnabled; 
+    [SerializeField] private AudioToggleButton _audioToggleButton;
 
     private void OnEnable()
     {
-        _audioMixerGroup.audioMixer.SetFloat(AudioData.Params.MasterVolume, 0f);
-        _isAudioEnabled = true;
+        _audioToggleButton.OnButtonClicked += ToggleAudio;
+
+        AudioData.EnableAudio();
     }
 
-    public void ChangeMasterVolume(float volume) => SetVolume(AudioData.Params.MasterVolume, volume);
-    public void ChangeBackgroundVolume(float volume) => SetVolume(AudioData.Params.BackgroundVolume, volume);
-    public void ChangeEffectsVolume(float volume) => SetVolume(AudioData.Params.EffectsVolume, volume);
-
-    public void ToggleAudio()
+    private void OnDisable()
     {
-        _isAudioEnabled = !_isAudioEnabled;
-        float volume = _isAudioEnabled ? 0f : -80f;
+        _audioToggleButton.OnButtonClicked -= ToggleAudio;
 
-        _audioMixerGroup.audioMixer.SetFloat(AudioData.Params.MasterVolume, volume);
     }
-    private void SetVolume(string volumeParam, float volume)
+
+    private void ToggleAudio()
     {
-        _audioMixerGroup.audioMixer.SetFloat(volumeParam, Mathf.Log10(volume) * 20);
+        if (AudioData.IsAudioEnabled)
+        {
+            AudioData.DisableAudio();
+        }
+        else
+        {
+            AudioData.EnableAudio();
+        }
+
+        AudioListener.pause = !AudioData.IsAudioEnabled;
     }
 }

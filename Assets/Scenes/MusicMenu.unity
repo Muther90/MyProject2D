@@ -358,6 +358,7 @@ GameObject:
   m_Component:
   - component: {fileID: 23267202}
   - component: {fileID: 23267203}
+  - component: {fileID: 23267204}
   m_Layer: 5
   m_Name: Effects Volume Slider
   m_TagString: Untagged
@@ -438,19 +439,21 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1940628050}
-        m_TargetAssemblyTypeName: MasterAudioMixer, Assembly-CSharp
-        m_MethodName: ChangeEffectsVolume
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &23267204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23267201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b058fea6aa955f8408d313124a03ae83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 23267203}
+  _audioMixerGroup: {fileID: -4727296097913277334, guid: 04d47623cfa0f784c9881bf9af1c5638, type: 2}
 --- !u!1 &124570871
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,6 +616,7 @@ GameObject:
   - component: {fileID: 140938820}
   - component: {fileID: 140938819}
   - component: {fileID: 140938818}
+  - component: {fileID: 140938821}
   m_Layer: 5
   m_Name: Alarm Sound Button
   m_TagString: Untagged
@@ -683,19 +687,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 140938819}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1736280020}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &140938819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -734,6 +726,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140938815}
   m_CullTransparentMesh: 1
+--- !u!114 &140938821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140938815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b12df457df07fe4c888e2662aa8575d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 140938818}
+  _audioSource: {fileID: 1736280020}
 --- !u!1 &210623773
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,6 +983,7 @@ GameObject:
   m_Component:
   - component: {fileID: 663990341}
   - component: {fileID: 663990342}
+  - component: {fileID: 663990343}
   m_Layer: 5
   m_Name: Background Music Volume Slider
   m_TagString: Untagged
@@ -1057,19 +1064,21 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1940628050}
-        m_TargetAssemblyTypeName: MasterAudioMixer, Assembly-CSharp
-        m_MethodName: ChangeBackgroundVolume
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &663990343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663990340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 472d209d62b3f9d419d35663debc6eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 663990342}
+  _audioMixerGroup: {fileID: 863378271024619742, guid: 04d47623cfa0f784c9881bf9af1c5638, type: 2}
 --- !u!1 &718895357
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,6 +1091,7 @@ GameObject:
   - component: {fileID: 718895361}
   - component: {fileID: 718895360}
   - component: {fileID: 718895359}
+  - component: {fileID: 718895362}
   m_Layer: 5
   m_Name: Explosive Sound Button
   m_TagString: Untagged
@@ -1152,19 +1162,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 718895360}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1437154028}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &718895360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1203,6 +1201,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 718895357}
   m_CullTransparentMesh: 1
+--- !u!114 &718895362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718895357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b12df457df07fe4c888e2662aa8575d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 718895359}
+  _audioSource: {fileID: 1437154028}
 --- !u!1 &776093008
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,6 +1438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1012644070}
   - component: {fileID: 1012644071}
+  - component: {fileID: 1012644072}
   m_Layer: 5
   m_Name: Master Volume Slider
   m_TagString: Untagged
@@ -1506,19 +1519,21 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1940628050}
-        m_TargetAssemblyTypeName: MasterAudioMixer, Assembly-CSharp
-        m_MethodName: ChangeMasterVolume
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &1012644072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012644069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d80a00eaddc7a42b913df4753b8134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slider: {fileID: 1012644071}
+  _audioMixerGroup: {fileID: 24300002, guid: 04d47623cfa0f784c9881bf9af1c5638, type: 2}
 --- !u!1 &1097528694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,6 +1682,7 @@ GameObject:
   - component: {fileID: 1111415716}
   - component: {fileID: 1111415715}
   - component: {fileID: 1111415714}
+  - component: {fileID: 1111415717}
   m_Layer: 5
   m_Name: On/Off Audio Button
   m_TagString: Untagged
@@ -1737,19 +1753,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1111415715}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1940628050}
-        m_TargetAssemblyTypeName: MasterAudioMixer, Assembly-CSharp
-        m_MethodName: ToggleAudio
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1111415715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1788,6 +1792,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1111415712}
   m_CullTransparentMesh: 1
+--- !u!114 &1111415717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1111415712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8e7b1359355054b9738961d9193265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 1111415714}
 --- !u!1 &1131232265
 GameObject:
   m_ObjectHideFlags: 0
@@ -2715,6 +2732,7 @@ GameObject:
   - component: {fileID: 1670333862}
   - component: {fileID: 1670333861}
   - component: {fileID: 1670333860}
+  - component: {fileID: 1670333863}
   m_Layer: 5
   m_Name: Click Sound Button
   m_TagString: Untagged
@@ -2785,19 +2803,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1670333861}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2070508274}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1670333861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2836,6 +2842,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670333858}
   m_CullTransparentMesh: 1
+--- !u!114 &1670333863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670333858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b12df457df07fe4c888e2662aa8575d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 1670333860}
+  _audioSource: {fileID: 2070508274}
 --- !u!1 &1703396853
 GameObject:
   m_ObjectHideFlags: 0
@@ -3217,6 +3237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioMixerGroup: {fileID: 24300002, guid: 04d47623cfa0f784c9881bf9af1c5638, type: 2}
+  _audioToggleButton: {fileID: 1111415717}
 --- !u!1 &2043061680
 GameObject:
   m_ObjectHideFlags: 0
