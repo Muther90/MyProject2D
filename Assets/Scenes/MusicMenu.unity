@@ -454,6 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 23267203}
   _audioMixerGroup: {fileID: -4727296097913277334, guid: 04d47623cfa0f784c9881bf9af1c5638, type: 2}
+  _masterAudioToggle: {fileID: 1111415717}
 --- !u!1 &124570871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,6 +1080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 663990342}
   _audioMixerGroup: {fileID: 863378271024619742, guid: 04d47623cfa0f784c9881bf9af1c5638, type: 2}
+  _masterAudioToggle: {fileID: 1111415717}
 --- !u!1 &718895357
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,7 +1250,6 @@ Transform:
   - {fileID: 1437154027}
   - {fileID: 2070508273}
   - {fileID: 1736280019}
-  - {fileID: 1940628049}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &790026390
@@ -1534,6 +1535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _slider: {fileID: 1012644071}
   _audioMixerGroup: {fileID: 24300002, guid: 04d47623cfa0f784c9881bf9af1c5638, type: 2}
+  _masterAudioToggle: {fileID: 1111415717}
 --- !u!1 &1097528694
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,7 +1686,7 @@ GameObject:
   - component: {fileID: 1111415714}
   - component: {fileID: 1111415717}
   m_Layer: 5
-  m_Name: On/Off Audio Button
+  m_Name: Master Audio Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1801,10 +1803,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1111415712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c8e7b1359355054b9738961d9193265, type: 3}
+  m_Script: {fileID: 11500000, guid: 81fdecd25d7a5144199009411548f6ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 1111415714}
+  _audioMixerGroup: {fileID: 24300002, guid: 04d47623cfa0f784c9881bf9af1c5638, type: 2}
 --- !u!1 &1131232265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,52 +3195,6 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1940628048
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1940628049}
-  - component: {fileID: 1940628050}
-  m_Layer: 0
-  m_Name: Master AudioMixer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1940628049
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940628048}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 134.2373, y: 86.685486, z: 2.5856624}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 776093009}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1940628050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940628048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81fdecd25d7a5144199009411548f6ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioMixerGroup: {fileID: 24300002, guid: 04d47623cfa0f784c9881bf9af1c5638, type: 2}
-  _audioToggleButton: {fileID: 1111415717}
 --- !u!1 &2043061680
 GameObject:
   m_ObjectHideFlags: 0
