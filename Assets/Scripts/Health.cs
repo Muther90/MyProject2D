@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public event Action<float, float> HealthChanged;
-
     [SerializeField] private float _maxHitPoints;
     [SerializeField] float _hitPoints;
+
+    public event Action<float, float> HealthChanged;
 
     private void Start()
     {
@@ -15,18 +15,29 @@ public class Health : MonoBehaviour
 
     public void ApplyDamage(float damage)
     {
-        _hitPoints -= damage;
-        HealthChanged?.Invoke(_hitPoints, _maxHitPoints);
-
-        if (_hitPoints <= 0)
+        if (IsPositiveValue(damage))
         {
-            Destroy(gameObject);
+            _hitPoints -= damage;
+            HealthChanged?.Invoke(_hitPoints, _maxHitPoints);
+
+            if (_hitPoints <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
     public void ApplyHeal(float heal)
     {
-        _hitPoints = Mathf.Min(_hitPoints + heal, _maxHitPoints);
-        HealthChanged?.Invoke(_hitPoints, _maxHitPoints);
+        if (IsPositiveValue(heal))
+        {
+            _hitPoints = Mathf.Min(_hitPoints + heal, _maxHitPoints);
+            HealthChanged?.Invoke(_hitPoints, _maxHitPoints);
+        }
+    }
+
+    private bool IsPositiveValue(float value) 
+    {
+        return value > 0;
     }
 }

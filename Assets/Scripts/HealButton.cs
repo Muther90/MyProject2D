@@ -1,14 +1,11 @@
 using UnityEngine;
 
-public class HealButton : PressButton
+public class HealButton : ButtonHandler
 {
-    [SerializeField] private int _healAmount = 10;
+    [SerializeField] private float _heal;
 
-    protected override void ApplyEffect(Collider2D collider)
+    protected override void ApplyEffect()
     {
-        if (collider.TryGetComponent<Player>(out Player player))
-        {
-            player.ApplyHeal(_healAmount);
-        }
+        _health.ApplyHeal(_heal);
     }
 }

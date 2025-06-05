@@ -1,15 +1,11 @@
 using UnityEngine;
 
-public class DamageButton : PressButton
+public class DamageButton : ButtonHandler
 {
-    [SerializeField] private int _damageAmount = 10;
+    [SerializeField] private float _damage;
 
-    protected override void ApplyEffect(Collider2D collider)
+    protected override void ApplyEffect()
     {
-        if (collider.TryGetComponent<Player>(out Player player))
-        {
-            player.ApplyDamage(_damageAmount);
-        }
+        _health.ApplyDamage(_damage);
     }
 }
-
