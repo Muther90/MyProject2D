@@ -6,11 +6,11 @@ public class Health : MonoBehaviour
     [SerializeField] private float _maxHitPoints;
     [SerializeField] float _hitPoints;
 
-    public event Action<float, float> HealthChanged;
+    public event Action<float, float> ValueChanged;
 
     private void Start()
     {
-        HealthChanged?.Invoke(_hitPoints, _maxHitPoints);
+        ValueChanged?.Invoke(_hitPoints, _maxHitPoints);
     }
 
     public void ApplyDamage(float damage)
@@ -18,7 +18,7 @@ public class Health : MonoBehaviour
         if (IsPositiveValue(damage))
         {
             _hitPoints -= damage;
-            HealthChanged?.Invoke(_hitPoints, _maxHitPoints);
+            ValueChanged?.Invoke(_hitPoints, _maxHitPoints);
 
             if (_hitPoints <= 0)
             {
@@ -32,7 +32,7 @@ public class Health : MonoBehaviour
         if (IsPositiveValue(heal))
         {
             _hitPoints = Mathf.Min(_hitPoints + heal, _maxHitPoints);
-            HealthChanged?.Invoke(_hitPoints, _maxHitPoints);
+            ValueChanged?.Invoke(_hitPoints, _maxHitPoints);
         }
     }
 
