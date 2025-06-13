@@ -4,14 +4,12 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] private float _maxHitPoints;
-    [SerializeField] float _hitPoints;
+    [SerializeField] private float _hitPoints;
 
     public event Action<float, float> ValueChanged;
 
-    private void Start()
-    {
-        ValueChanged?.Invoke(_hitPoints, _maxHitPoints);
-    }
+    public float MaxHealth => _maxHitPoints;
+    public float CurrentHealth => _hitPoints;
 
     public void ApplyDamage(float damage)
     {

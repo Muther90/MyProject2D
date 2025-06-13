@@ -4,7 +4,6 @@ public class InputReader : MonoBehaviour
 {
     public const string Horizontal = "Horizontal";
 
-    private bool _isJump;
     private bool _isHit;
 
     public float Direction { get; private set; }
@@ -12,21 +11,11 @@ public class InputReader : MonoBehaviour
     private void Update()
     {
         Direction = Input.GetAxis(Horizontal);
-    
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            _isJump = true;
-        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _isHit = true;
         }
-    }
-
-    public bool GetIsJump()
-    {
-        return GetBoolAsTrigger(ref _isJump);
     }
 
     public bool GetIsHit()

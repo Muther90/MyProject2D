@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 
 public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable
 {
-    [SerializeField] private float _cooldown = 2f;
+    [SerializeField] private float _cooldown;
     [SerializeField] private T _prefab;
     [SerializeField] private WaypointProvider _pointManager;
 

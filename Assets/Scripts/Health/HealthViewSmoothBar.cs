@@ -1,13 +1,19 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class HealthViewSmoothBar : HealthView
 {
     [SerializeField] private Slider _smoothSlider;
-    [SerializeField][Range(0.1f, 1f)] private float _smoothSpeed = 0.5f;
+    [SerializeField][Range(0.1f, 1f)] private float _smoothSpeed;
 
     private Coroutine _smoothCoroutine;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _smoothSlider.value = _health.CurrentHealth / _health.MaxHealth;
+    }
 
     protected override void OnDisable()
     {
@@ -34,8 +40,10 @@ public class HealthViewSmoothBar : HealthView
         while (Mathf.Abs(_smoothSlider.value - currentNormalized) > 0.001f)
         {
             _smoothSlider.value = Mathf.MoveTowards(_smoothSlider.value, currentNormalized, _smoothSpeed * Time.deltaTime);
-            
+
             yield return null;
         }
+
+        _smoothCoroutine = null;
     }
 }
