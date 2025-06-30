@@ -19,18 +19,12 @@ public class HealthViewSmoothBar : HealthView
     {
         base.OnDisable();
 
-        if (_smoothCoroutine != null)
-        {
-            StopCoroutine(_smoothCoroutine);
-        }
+        StopSmoothCoroutine();
     }
 
     protected override void OnValueChanged(float currentHealth, float maxHealth)
     {
-        if (_smoothCoroutine != null)
-        {
-            StopCoroutine(_smoothCoroutine);
-        }
+        StopSmoothCoroutine();
 
         _smoothCoroutine = StartCoroutine(SmoothHealthCoroutine(currentHealth / maxHealth));
     }
@@ -45,5 +39,13 @@ public class HealthViewSmoothBar : HealthView
         }
 
         _smoothCoroutine = null;
+    }
+
+    private void StopSmoothCoroutine()
+    {
+        if (_smoothCoroutine != null)
+        {
+            StopCoroutine(_smoothCoroutine);
+        }
     }
 }

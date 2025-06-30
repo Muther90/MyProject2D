@@ -1,7 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Health), typeof(Combat))]
-[RequireComponent(typeof(InputReader), typeof(Mover))]
+[RequireComponent(typeof(Health), typeof(Combat), typeof(InputReader))]
 public class Player : MonoBehaviour, IHealth
 {
     [SerializeField] private Health _health;
@@ -28,6 +27,7 @@ public class Player : MonoBehaviour, IHealth
             _playerAnimator.SetMoveDirection(_isMoving, _direction);
             _mover.Move(_direction);
         }
+
     }
 
     public void TakeDamage(float damage) => _health.ApplyDamage(damage);

@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 
 public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable
 {
-    [SerializeField] private float _cooldown;
+    [SerializeField] private float _interval;
     [SerializeField] private T _prefab;
     [SerializeField] private WaypointProvider _pointManager;
 
@@ -22,8 +22,7 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable
             throw new System.Exception("Places of spawn is not assigned!");
         }
 
-        _spawnPoints = _pointManager.Get();
-        _waitForSeconds = new WaitForSeconds(_cooldown);
+        _spawnPoints = _pointManager.Get(); 
 
         _pool = new ObjectPool<T>(
             createFunc: () => Instantiate(_prefab, Vector2.zero, Quaternion.identity),
@@ -55,11 +54,13 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable
 
     private IEnumerator CountdownRoutine()
     {
+        _waitForSeconds = new WaitForSeconds(_interval);
+
         while (_queueToSpawn.Count > 0)
         {
-            yield return _waitForSeconds;
-
             _pool.Get();
+
+            yield return _waitForSeconds;
         }
 
         _countdownRoutine = null;
