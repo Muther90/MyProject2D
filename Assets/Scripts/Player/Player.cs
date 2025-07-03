@@ -1,6 +1,8 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Health), typeof(Combat), typeof(InputReader))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(Combat))]
+[RequireComponent(typeof(InputReader))]
 public class Player : MonoBehaviour, IHealth
 {
     [SerializeField] private Health _health;
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour, IHealth
         _playerAnimator = new PlayerAnimator(_animator);
     }
 
+
     private void FixedUpdate()
     {
         _direction = _inputReader.Direction;
@@ -27,7 +30,6 @@ public class Player : MonoBehaviour, IHealth
             _playerAnimator.SetMoveDirection(_isMoving, _direction);
             _mover.Move(_direction);
         }
-
     }
 
     public void TakeDamage(float damage) => _health.ApplyDamage(damage);

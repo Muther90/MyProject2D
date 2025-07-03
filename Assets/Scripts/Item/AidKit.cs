@@ -6,7 +6,7 @@ public class AidKit : Item
 
     protected override void ApplyEffect(Collector collector)
     {
-        if (collector.TryGetComponent<IHealable>(out IHealable healTarget))
+        if (collector.GetComponentInParent<IHealable>() is IHealable healTarget)
         {
             healTarget.TakeHeal(_healAmount);
         }
