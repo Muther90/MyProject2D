@@ -67,11 +67,16 @@ public class Spell : MonoBehaviour
                 .Select(collider => new
                 {
                     Collider = collider,
-                    DamageableTarget = collider.TryGetComponent<IDamageable>(out var damageable) ? damageable : null
+                    DamageableTarget = collider.TryGetComponent<IDamageable>(out var damageable) 
+                        ? damageable 
+                        : null
                 })
-                .Where(potentialTarget => potentialTarget.DamageableTarget != null)
-                .OrderBy(potentialTarget => ((Vector2)potentialTarget.Collider.transform.position - transformPosition).sqrMagnitude)
-                .Select(potentialTarget => potentialTarget.DamageableTarget)
+                .Where(potentialTarget => 
+                    potentialTarget.DamageableTarget != null)
+                .OrderBy(potentialTarget => 
+                    ((Vector2)potentialTarget.Collider.transform.position - transformPosition).sqrMagnitude)
+                .Select(potentialTarget => 
+                    potentialTarget.DamageableTarget)
                 .FirstOrDefault();
 
             if (target != null)
