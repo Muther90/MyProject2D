@@ -9,6 +9,7 @@ public class Player : MonoBehaviour, IHealth
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private Mover _mover;
     [SerializeField] private Animator _animator;
+    [SerializeField] private Spell _spell;
 
     private PlayerAnimator _playerAnimator;
     private float _direction;
@@ -19,6 +20,15 @@ public class Player : MonoBehaviour, IHealth
         _playerAnimator = new PlayerAnimator(_animator);
     }
 
+    private void OnEnable()
+    {
+        _inputReader.SpaceKeyDowned += _spell.Cast;
+    }
+
+    private void OnDisable()
+    {
+        _inputReader.SpaceKeyDowned -= _spell.Cast; 
+    }
 
     private void FixedUpdate()
     {

@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class InputReader : MonoBehaviour
 {
-    public static event Action SpaceKeyDowned;
-
-    public const string Horizontal = "Horizontal";
+    private const string Horizontal = "Horizontal";
 
     public float Direction { get; private set; }
+
+    public event Action SpaceKeyDowned;
 
     private void Update()
     {
@@ -15,7 +15,7 @@ public class InputReader : MonoBehaviour
         
         if (Input.GetKey(KeyCode.Space))
         {
-            SpaceKeyDowned.Invoke();
+            SpaceKeyDowned?.Invoke();
         }
     }
 }

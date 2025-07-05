@@ -11,7 +11,7 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable
 
     private ObjectPool<T> _pool; 
     private Vector2[] _spawnPoints;
-    private Queue<Vector2> _queueToSpawn = new Queue<Vector2>();
+    private Queue<Vector2> _queueToSpawn = new();
     private WaitForSeconds _waitForSeconds;
     private Coroutine _countdownRoutine;
 

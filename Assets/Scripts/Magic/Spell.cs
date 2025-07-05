@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -10,42 +10,22 @@ public class Spell : MonoBehaviour
     [SerializeField, Min(0f)] private float _damage = 10f;
     [SerializeField, Min(0f)] private float _damageTickRate = 1f;
     [SerializeField, Min(0f)] private float _heal = 5f;
+    [SerializeField] private Collider2D _collider;
     [SerializeField] private Health _health;
     [SerializeField] private SpellView _spellView;
 
-    private List<IDamageable> _targets = new();
     private Coroutine _damageCoroutine;
     private Coroutine _spellCoroutine;
+    private Collider2D[] _overlapColliders = new Collider2D[100];
 
-    private void OnEnable()
-    {
-        InputReader.SpaceKeyDowned += OnKeyDown;
-    }
+    public event Action<float> CastStarted;
+    public event Action CastEnded;
+    public event Action<float> IntervalStarted;
+    public event Action IntervalEnded;
 
-    private void OnDisable()
+    public void Cast()
     {
-        InputReader.SpaceKeyDowned -= OnKeyDown;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (_spellCoroutine != null && collider.TryGetComponent<IDamageable>(out IDamageable damageable))
-        {
-            _targets.Add(damageable);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collider)
-    {
-        if (collider.TryGetComponent<IDamageable>(out IDamageable damageable))
-        {
-            _targets.Remove(damageable);
-        }
-    }
-
-    private void OnKeyDown()
-    {
-        if (_spellCoroutine == null )
+        if (_spellCoroutine == null)
         {
             _spellCoroutine = StartCoroutine(SpellCoroutine());
         }
@@ -53,37 +33,50 @@ public class Spell : MonoBehaviour
 
     private IEnumerator SpellCoroutine()
     {
-        _spellView.EnableAura();
-        _spellView.EnableSlider();
+        CastStarted?.Invoke(_duration);
 
         _damageCoroutine = StartCoroutine(DamagingCoroutine());
-        yield return StartCoroutine(_spellView.ViewDuration(_duration));
+        yield return new WaitForSeconds(_duration);
 
         StopCoroutine(_damageCoroutine);
         _damageCoroutine = null;
-        _targets.Clear();
 
-        _spellView.DisableAura();
-        yield return StartCoroutine(_spellView.ViewInterval(_interval));
-        _spellView.DisableSlider();
+        CastEnded?.Invoke();
+
+        IntervalStarted?.Invoke(_interval); 
+        yield return new WaitForSeconds(_interval);
+        IntervalEnded?.Invoke(); 
 
         _spellCoroutine = null;
     }
 
     private IEnumerator DamagingCoroutine()
     {
+        Vector2 transformPosition;
         WaitForSeconds waitForSeconds = new(_damageTickRate);
+        float radius = _collider.bounds.extents.x;
+        int countColliders;
 
         while (enabled)
         {
-            if (_targets.Any())
-            {
-                IDamageable DamageableTarget = _targets.OfType<Component>()
-                    .OrderBy(component => Vector2.SqrMagnitude((Vector2)component.transform.position - (Vector2)transform.position))
-                    .Select(component => component as IDamageable)
-                    .FirstOrDefault();
+            transformPosition = transform.position;
+            countColliders = Physics2D.OverlapCircleNonAlloc(transformPosition, radius, _overlapColliders);
 
-                DamageableTarget.TakeDamage(_damage);
+            IDamageable target = _overlapColliders
+                .Take(countColliders) 
+                .Select(collider => new
+                {
+                    Collider = collider,
+                    DamageableTarget = collider.TryGetComponent<IDamageable>(out var damageable) ? damageable : null
+                })
+                .Where(potentialTarget => potentialTarget.DamageableTarget != null)
+                .OrderBy(potentialTarget => ((Vector2)potentialTarget.Collider.transform.position - transformPosition).sqrMagnitude)
+                .Select(potentialTarget => potentialTarget.DamageableTarget)
+                .FirstOrDefault();
+
+            if (target != null)
+            {
+                target.TakeDamage(_damage);
                 _health.ApplyHeal(_heal);
             }
 

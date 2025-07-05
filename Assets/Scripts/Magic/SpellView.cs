@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer), typeof(Collider2D))]
@@ -7,6 +6,7 @@ public class SpellView : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Collider2D _collider;
     [SerializeField] private SmoothSlider _smoothSlider;
+    [SerializeField] private Spell _spell;
 
     private void Awake()
     {
@@ -15,27 +15,42 @@ public class SpellView : MonoBehaviour
         _smoothSlider.gameObject.SetActive(false);
     }
 
-    public IEnumerator ViewDuration(float duration) => _smoothSlider.Draining(duration);
-    public IEnumerator ViewInterval(float interval) => _smoothSlider.Filling(interval);
-
-    public void EnableAura() 
-    { 
-        _spriteRenderer.enabled = true;
-        _collider.enabled = true;
+    private void OnEnable()
+    {
+        _spell.CastStarted += OnCastStarted;
+        _spell.CastEnded += OnCastEnded;
+        _spell.IntervalStarted += OnIntervalStarted;
+        _spell.IntervalEnded += OnIntervalEnded;
     }
 
-    public void DisableAura()
+    private void OnDisable()
+    {
+        _spell.CastStarted -= OnCastStarted;
+        _spell.CastEnded -= OnCastEnded;
+        _spell.IntervalStarted -= OnIntervalStarted;
+        _spell.IntervalEnded -= OnIntervalEnded;
+    }
+
+    private void OnCastStarted(float duration)
+    {
+        _spriteRenderer.enabled = true;
+        _collider.enabled = true;
+        _smoothSlider.gameObject.SetActive(true);
+        _smoothSlider.Draining(duration);
+    }
+
+    private void OnCastEnded()
     {
         _spriteRenderer.enabled = false;
         _collider.enabled = false;
     }
 
-    public void EnableSlider()
+    private void OnIntervalStarted(float interval)
     {
-        _smoothSlider.gameObject.SetActive(true);
+        _smoothSlider.Filling(interval);
     }
 
-    public void DisableSlider()
+    private void OnIntervalEnded()
     {
         _smoothSlider.gameObject.SetActive(false);
     }

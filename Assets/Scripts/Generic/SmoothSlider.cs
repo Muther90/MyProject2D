@@ -6,21 +6,21 @@ public class SmoothSlider : MonoBehaviour
 {
     [SerializeField] private Slider _slider;
 
-    public IEnumerator Filling(float duration)
+    private Coroutine _moveToCoroutine;
+
+    public void Filling(float duration)
     {
         _slider.value = _slider.minValue;
-
-        yield return MoveTo(_slider.maxValue, duration);
+        _moveToCoroutine = StartCoroutine(MoveToCoroutine(_slider.maxValue, duration));
     }
 
-    public IEnumerator Draining(float duration)
+    public void Draining(float duration)
     {
         _slider.value = _slider.maxValue;
-
-        yield return MoveTo(_slider.minValue, duration);
+        _moveToCoroutine = StartCoroutine(MoveToCoroutine(_slider.minValue, duration));
     }
 
-    private IEnumerator MoveTo(float toValue, float duration)
+    private IEnumerator MoveToCoroutine(float toValue, float duration)
     {
         if (IsPositiveValue(duration))
         {
@@ -31,6 +31,8 @@ public class SmoothSlider : MonoBehaviour
                 yield return null;
             }
         }
+
+        _moveToCoroutine = null;
     }
 
     private bool IsPositiveValue(float value)

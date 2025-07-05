@@ -621,6 +621,7 @@ MonoBehaviour:
   _inputReader: {fileID: 55895535}
   _mover: {fileID: 873604528}
   _animator: {fileID: 17208546}
+  _spell: {fileID: 2036257286}
 --- !u!114 &55895540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2730,7 +2731,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 55895523}
@@ -2839,6 +2840,7 @@ MonoBehaviour:
   _damage: 2
   _damageTickRate: 0.2
   _heal: 2
+  _collider: {fileID: 2036257285}
   _health: {fileID: 55895528}
   _spellView: {fileID: 2036257287}
 --- !u!114 &2036257287
@@ -2856,6 +2858,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 2036257284}
   _collider: {fileID: 2036257285}
   _smoothSlider: {fileID: 8534426136872112102}
+  _spell: {fileID: 2036257286}
 --- !u!1001 &2140251205
 PrefabInstance:
   m_ObjectHideFlags: 0
