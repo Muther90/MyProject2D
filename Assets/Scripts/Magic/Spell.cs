@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 
 public class Spell : MonoBehaviour
@@ -14,9 +13,8 @@ public class Spell : MonoBehaviour
     [SerializeField] private Health _health;
     [SerializeField] private SpellView _spellView;
 
-    private Coroutine _damageCoroutine;
+    private Coroutine _damagingCoroutine;
     private Coroutine _spellCoroutine;
-    private Collider2D[] _overlapColliders = new Collider2D[100];
 
     public event Action<float> CastStarted;
     public event Action CastEnded;
@@ -34,13 +32,7 @@ public class Spell : MonoBehaviour
     private IEnumerator SpellCoroutine()
     {
         CastStarted?.Invoke(_duration);
-
-        _damageCoroutine = StartCoroutine(DamagingCoroutine());
-        yield return new WaitForSeconds(_duration);
-
-        StopCoroutine(_damageCoroutine);
-        _damageCoroutine = null;
-
+        yield return _damagingCoroutine = StartCoroutine(DamagingCoroutine());
         CastEnded?.Invoke();
 
         IntervalStarted?.Invoke(_interval); 
@@ -52,32 +44,13 @@ public class Spell : MonoBehaviour
 
     private IEnumerator DamagingCoroutine()
     {
-        Vector2 transformPosition;
-        WaitForSeconds waitForSeconds = new(_damageTickRate);
+        float startTime = Time.time;
+        float endTime = startTime + _duration;
         float radius = _collider.bounds.extents.x;
-        int countColliders;
 
-        while (enabled)
+        while (Time.time < endTime)
         {
-            transformPosition = transform.position;
-            countColliders = Physics2D.OverlapCircleNonAlloc(transformPosition, radius, _overlapColliders);
-
-            IDamageable target = _overlapColliders
-                .Take(countColliders) 
-                .Select(collider => new
-                {
-                    Collider = collider,
-                    DamageableTarget = collider.TryGetComponent<IDamageable>(out var damageable) 
-                        ? damageable 
-                        : null
-                })
-                .Where(potentialTarget => 
-                    potentialTarget.DamageableTarget != null)
-                .OrderBy(potentialTarget => 
-                    ((Vector2)potentialTarget.Collider.transform.position - transformPosition).sqrMagnitude)
-                .Select(potentialTarget => 
-                    potentialTarget.DamageableTarget)
-                .FirstOrDefault();
+            IDamageable target = TargetFinder.FindNearestDamageable(transform, radius);
 
             if (target != null)
             {
@@ -85,7 +58,9 @@ public class Spell : MonoBehaviour
                 _health.ApplyHeal(_heal);
             }
 
-            yield return waitForSeconds;
+            yield return new WaitForSeconds(Mathf.Min(_damageTickRate, endTime - Time.time));
         }
+
+        _damagingCoroutine = null;
     }
 }

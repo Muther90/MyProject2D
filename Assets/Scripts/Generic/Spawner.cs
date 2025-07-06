@@ -12,8 +12,7 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable
     private ObjectPool<T> _pool; 
     private Vector2[] _spawnPoints;
     private Queue<Vector2> _queueToSpawn = new();
-    private WaitForSeconds _waitForSeconds;
-    private Coroutine _countdownRoutine;
+    private Coroutine _countdownCoroutine;
 
     private void Awake()
     {
@@ -52,18 +51,18 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable
         }
     }
 
-    private IEnumerator CountdownRoutine()
+    private IEnumerator CountdownCoroutine()
     {
-        _waitForSeconds = new WaitForSeconds(_interval);
+        WaitForSeconds waitForSeconds = new WaitForSeconds(_interval);
 
         while (_queueToSpawn.Count > 0)
         {
             _pool.Get();
 
-            yield return _waitForSeconds;
+            yield return waitForSeconds;
         }
 
-        _countdownRoutine = null;
+        _countdownCoroutine = null;
     }
 
     private void OnGetObject(T obj)
@@ -81,9 +80,9 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, ISpawnable
         T typedObj = (T)obj;
         _pool.Release(typedObj);
 
-        if (_countdownRoutine == null && _queueToSpawn.Count > 0)
+        if (_countdownCoroutine == null && _queueToSpawn.Count > 0)
         {
-            _countdownRoutine = StartCoroutine(CountdownRoutine());
+            _countdownCoroutine = StartCoroutine(CountdownCoroutine());
         }
     }
 
