@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 534038478}
   - component: {fileID: 534038477}
   m_Layer: 0
-  m_Name: TurretRemover
+  m_Name: TurretCollector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1282,8 +1282,8 @@ MonoBehaviour:
   _defaultCapacity: 10
   _maxSize: 10
   _delay: 3
-  _lowerBound: -4
-  _upperBound: 6
+  _lowerBound: -3.5
+  _upperBound: 4.5
 --- !u!1 &1854221401
 GameObject:
   m_ObjectHideFlags: 0

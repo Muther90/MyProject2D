@@ -13,7 +13,7 @@ public class TurretSpawner : BaseObjectPool<Turret>
 
     private void OnEnable()
     {
-        _generateCoroutine = StartCoroutine(GenerateTurret());
+        _generateCoroutine = StartCoroutine(GenerateTurretCoroutine());
     }
 
     private void OnDisable()
@@ -24,10 +24,10 @@ public class TurretSpawner : BaseObjectPool<Turret>
 
     private void Start()
     {
-        this.Reset();
+        Reset();
     }
 
-    private IEnumerator GenerateTurret()
+    private IEnumerator GenerateTurretCoroutine()
     {
         WaitForSeconds wait = new (_delay);
 

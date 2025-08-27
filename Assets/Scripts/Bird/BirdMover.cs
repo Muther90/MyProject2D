@@ -13,7 +13,6 @@ public class BirdMover : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private Quaternion _maxRotation;
     private Quaternion _minRotation;
-    private bool _isJump;
 
     private void Awake()
     {
@@ -23,15 +22,8 @@ public class BirdMover : MonoBehaviour
         _minRotation = Quaternion.Euler(0, 0, _minRotationZ);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (_isJump)
-        {
-            _rigidbody2D.velocity = new Vector2(_speed, _tapForce);
-            transform.rotation = _maxRotation;
-            _isJump = false;
-        }
-
         transform.rotation = Quaternion.Lerp(transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
     }
 
@@ -43,6 +35,7 @@ public class BirdMover : MonoBehaviour
 
     public void Jump()
     {
-        _isJump = true;
+        _rigidbody2D.velocity = new Vector2(_speed, _tapForce);
+        transform.rotation = _maxRotation;
     }
 }

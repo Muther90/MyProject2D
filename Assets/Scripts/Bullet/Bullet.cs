@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour, IPoolObject, IInteractable, ITakenable
     private void OnEnable()
     {
         _bulletCollisionHandler.CollisionDetected += ProcessCollision;
-        _fireCoroutine = StartCoroutine(LifeCoroutine());
+        _fireCoroutine = StartCoroutine(ExpireLifetimeCoroutine());
     }
 
     private void OnDisable()
@@ -42,7 +42,7 @@ public class Bullet : MonoBehaviour, IPoolObject, IInteractable, ITakenable
         Taken?.Invoke(this);
     }
 
-    private IEnumerator LifeCoroutine()
+    private IEnumerator ExpireLifetimeCoroutine()
     {
         yield return new WaitForSeconds(_lifeTime);
 

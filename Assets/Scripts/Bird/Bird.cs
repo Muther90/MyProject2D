@@ -13,7 +13,7 @@ public class Bird : MonoBehaviour
     private BirdMover _birdMover;
     private BirdCollisionHandler _birdCollisionHandler;
 
-    public event Action GameOver;
+    public event Action Dead;
 
     private void Awake()
     {
@@ -24,15 +24,15 @@ public class Bird : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputReader.SpaceKeyDowned += Jump;
-        _inputReader.FKeyDowned += Fire;
+        _inputReader.JumpKeyDowned += Jump;
+        _inputReader.FireKeyDowned += Fire;
         _birdCollisionHandler.CollisionDetected += ProcessCollision;
     }
 
     private void OnDisable()
     {
-        _inputReader.SpaceKeyDowned -= Jump;
-        _inputReader.FKeyDowned -= Fire;
+        _inputReader.JumpKeyDowned -= Jump;
+        _inputReader.FireKeyDowned -= Fire;
         _birdCollisionHandler.CollisionDetected -= ProcessCollision;
     }
 
@@ -47,12 +47,11 @@ public class Bird : MonoBehaviour
     {
         if (interactable is Turret || interactable is Ground || interactable is Bullet)
         {
-            GameOver?.Invoke();
+            Dead?.Invoke();
         }
-
         else if (interactable is ScoreZone)
         {
-            _scoreCounter.Add();
+            _scoreCounter.Increase();
         }
     }
 

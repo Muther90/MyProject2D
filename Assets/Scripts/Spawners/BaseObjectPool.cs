@@ -9,7 +9,7 @@ public class BaseObjectPool<T> : MonoBehaviour where T : MonoBehaviour, IPoolObj
     [SerializeField] private int _maxSize;
 
     private ObjectPool<T> _pool;
-    private HashSet<T> _activeObjects = new();
+    private readonly HashSet<T> _activeObjects = new();
 
     private void Awake()
     {
@@ -40,12 +40,10 @@ public class BaseObjectPool<T> : MonoBehaviour where T : MonoBehaviour, IPoolObj
         _activeObjects.Clear();
     }
 
-    protected T Spawn(Vector3 position, Quaternion rotation)
+    protected void Spawn(Vector3 position, Quaternion rotation)
     {
         T obj = _pool.Get();
         obj.transform.SetPositionAndRotation(position, rotation);
-
-        return obj;
     }
 
     private void Release(IPoolObject obj)

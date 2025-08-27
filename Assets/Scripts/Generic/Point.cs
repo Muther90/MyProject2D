@@ -9,7 +9,7 @@ public class Point : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void Start()
+    private void Start()
     {
         _spriteRenderer.enabled = false;
     }
